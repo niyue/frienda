@@ -1,0 +1,38 @@
+= frienda
+
+* FIX (url)
+
+== DESCRIPTION:
+
+Frienda is a program used to analyze and visualize your friends network within kaixin001.com.
+
+== FEATURES:
+
+* Grab your friends data from kaixin001.com
+* Visualize friends network by outputing a diagram
+* Support png and svg formats
+* Support to use friend's name or avartar as node in the diagram
+
+== SAMPLE OUTPUTS:
+http://farm4.static.flickr.com/3131/3154058956_a6bd8e52d8_b.jpg
+http://farm4.static.flickr.com/3224/3154066802_ed77aa998f_b.jpg
+
+PNG format sample download: http://www.box.net/shared/o4nuvlrd9f
+SVG format sample download: http://www.box.net/shared/rtngd348k0
+
+== REQUIREMENTS:
+
+* Only tested under Mac OS X 10.5.6
+
+== INSTALL and RUN:
+
+* Install Java 5
+* Install Graphviz, http://www.graphviz.org/
+* Install JRuby, http://jruby.org
+* Install rgl and hpricot gems, jruby -S gem install rgl hpricot
+* Download Batik SVG library 1.7, http://xmlgraphics.apache.org/batik/download.cgi
+* Unzip and copy Batik library, unzip batik-1.7.zip
+* Create jar directory, mkdir FRIENDA_HOME/lib/jar
+* Copy unzipped Batik library, cp -r batik-1.7/* FRIENDA_HOME/lib/jar/
+* Change config.yml according to parameter description
+* Run "jruby bin/frienda.rb"

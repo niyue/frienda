@@ -1,0 +1,562 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>我的首页 - 开心网</title>
+<link href="http://img.kaixin001.com.cn/css/s.css" rel="stylesheet" type="text/css" />
+<script src="http://img.kaixin001.com.cn/js/head-10.js" language="JavaScript" type="text/javascript"></script>
+<script src="http://img.kaixin001.com.cn/js/common-2.js" type="text/javascript"></script>
+<script src="http://img.kaixin001.com.cn/js/prototype-1.4.0.js" language="JavaScript" type="text/javascript"></script>
+<script src="http://img.kaixin001.com.cn/js/s.js" language="JavaScript" type="text/javascript"></script>
+<script src="http://img.kaixin001.com.cn/js/cookie.js" type="text/javascript"></script>
+<script src="http://img.kaixin001.com.cn/js/dialog-1.js" language="JavaScript" type="text/javascript"></script>
+<script src="http://img.kaixin001.com.cn/js/app_friend.js" language="JavaScript" type="text/javascript"></script>
+<script src="http://img.kaixin001.com.cn/js/swfobject.js" type="text/javascript"></script>
+<script language="javascript">AC_FL_RunContent = 0;</script>
+<script src="http://img.kaixin001.com.cn/js/AC_RunActiveContent.js" type="text/javascript"></script>
+<link href="http://img.kaixin001.com.cn/css/apppop.css" rel="stylesheet" type="text/css" />
+<script src="http://img.kaixin001.com.cn/js/webeditor/editor-2.js" language="JavaScript" type="text/javascript"></script>
+<script src="http://img.kaixin001.com.cn/js/comment-2.js" type="text/javascript"></script>
+<script src="http://img.kaixin001.com.cn/js/addfriend-1.js" type="text/javascript"></script>
+<script src="http://img.kaixin001.com.cn/js/friend_supersuggest.js" type="text/javascript"></script>
+<script src="http://img.kaixin001.com.cn/js/friend_suggest.js" type="text/javascript"></script>
+<script src="http://img.kaixin001.com.cn/js/music.js" type="text/javascript"></script>
+
+</head>
+
+<body onload="javascript:if ('function' == typeof(_bodyonload)) { _bodyonload(event); };"
+ onunload="javascript:if ('function' == typeof(_bodyonunload)) { _bodyonunload(event); };"
+ onbeforeunload="javascript:if ('function' == typeof(_bodyonbeforeunload)) { _bodyonbeforeunload(event); };">
+
+<script language="JavaScript">
+outputHead();
+setTimeout(checkNewMsg, 20000);
+init();
+</script>
+
+<script language="JavaScript">
+g_allapp_num=8;
+g_prevapp_num=20;
+
+g_app_num=20;
+g_appnum = 0;
+g_bappmore = false;
+document.writeln('<div id=head_applist>');
+setApplistHiddenHead();
+outputApp("http://img.kaixin001.com.cn/i/ico_zp.gif", "http://www.kaixin001.com/photo/albumlist.php", "照片", "1", "1");
+setApplistHiddenHead();
+outputApp("http://img.kaixin001.com.cn/i/ico_rj.gif", "http://www.kaixin001.com/diary/", "日记", "2", "1");
+setApplistHiddenHead();
+outputApp("http://img.kaixin001.com.cn/i/record/ico_jl2.gif", "http://www.kaixin001.com/app/app.php?aid=1018", "记录", "1018", "1");
+setApplistHiddenHead();
+outputApp("http://img.kaixin001.com.cn/i/z/ico_dtyx1.gif", "http://www.kaixin001.com/dongta/", "动他一下", "1000", "0");
+setApplistHiddenHead();
+outputApp("http://img.kaixin001.com.cn/i/gift/ico_lw_bg.gif", "http://www.kaixin001.com/gift/", "礼物", "1001", "1");
+setApplistHiddenHead();
+outputApp("http://img.kaixin001.com.cn/i/music/ico_music_bg.gif", "http://www.kaixin001.com/app/app.php?aid=1006", "音乐", "1006", "1");
+setApplistHiddenHead();
+outputApp("http://img.kaixin001.com.cn/i/hard_disk/ico_yp2.gif", "http://www.kaixin001.com/app/app.php?aid=1008", "网盘", "1008", "1");
+setApplistHiddenHead();
+outputApp("http://img.kaixin001.com.cn/i/yuan/ico_match2.gif", "http://www.kaixin001.com/app/app.php?aid=1004", "姓名缘分", "1004", "0");
+setApplistHiddenTail();
+document.writeln('</div>');
+
+g_app_num=20;
+g_appnum = 0;
+g_bappmore = false;
+outputAppInfo();
+
+outputHead2();
+</script>
+<script language=javascript>
+
+if (top.location != self.location) top.location=self.location; 
+
+function changeimg(s, s1, s2)
+{
+	$(s).src = (-1 == $(s).src.indexOf(s1)) ? s1 : s2;
+}
+
+function setState(evnt)
+{
+	$("divsetstate").style.left = (evnt.clientX + document.body.scrollLeft + document.documentElement.scrollLeft - 210) + "px";
+	$("divsetstate").style.top = (evnt.clientY + document.body.scrollTop + document.documentElement.scrollTop) + "px";
+	s("divsetstate");
+}
+
+function ajaxSetState()
+{
+	h("divsetstate");
+        var url = "/friend/status_submit.php";
+        var state = "";
+        if ($('statetext').value != "正在")
+        {
+		state = encodeURIComponent($('statetext').value);
+	}
+
+	var pars = "state=" + state;
+	var myAjax = new Ajax.Request(url, {method: "post", parameters: pars, onComplete: function (req) { ajax_showState(req); } });
+}
+
+function ajax_showState(req)
+{
+	var r = req.responseText;
+	eval("r="+r);
+	
+	if (r.state.length == 0)
+	{
+		h("divstate0");
+		s("divstate1");
+	}
+        else
+        {
+		$("statespan").innerHTML = r.state + " <span class=\"sy_p_zt\">刚刚更新</span>";
+		s("divstate0");
+		h("divstate1");
+	}
+}
+
+function delpost(v_puid, v_type, v_id)
+{
+	var url = "/home/delpost.php";
+	var pars = "ouid=" + v_puid + "&type=" + v_type + "&id=" + v_id;
+	var myAjax = new Ajax.Request(url, {method: "post", parameters: pars, onComplete: function (req) { ajax_delPost(req); } });
+}
+
+function ajax_delPost(req)
+{
+	var r = req.responseText;
+	eval("r="+r);
+	if (r.type == "diary")
+	{
+		h('diary_'+r.id);
+	}
+	else
+	{
+		h('photo_'+r.type+"_"+r.id);
+	}
+}
+
+
+
+function f_afterseluid(f_seluid)
+{
+	if (parseInt(f_seluid))
+	{
+		window.location = "/home/?uid=" + f_seluid;
+	}
+}
+
+var g_apppop_id = 0;
+var g_reginto = parseInt("0");
+var g_apppop_filter = 0;
+
+function showAppPop()
+{
+	g_apppop_filter += 10;
+	var obj = $("apppopwindow");
+	if (obj)
+	{
+		obj['style']['opacity']	= g_apppop_filter * 0.01 + "";
+		obj['style']['filter'] = "alpha(opacity=" + g_apppop_filter + ")";
+	}
+	
+	if (g_apppop_filter == 100)
+	{
+		clearInterval(g_apppop_id);
+		obj['style'].cssText = "width:331px; height:207px; Z-INDEX: 99999;left: -60px !important;  LEFT: -910px; POSITION: absolute; TOP: 105px; background:url(http://img.kaixin001.com.cn/i2/pop/bg.png) no-repeat !important; background:url(http://img.kaixin001.com.cn/i2/pop/b-bg.gif) no-repeat;";
+	}
+}
+
+function _bodyonload()
+{
+	if (g_reginto)
+	{
+		s("apppopwindow");
+		g_apppop_id = setInterval("showAppPop()", 100);
+	}
+}
+
+function showPic()
+{
+	$("importantnewsimg").src = 'http://img.kaixin001.com.cn/i2/flag1.gif';
+	$("importantnewshref").style.color = '#3366cc';
+}
+
+function showPic1()
+{
+	$("importantnewsimg").src = 'http://img.kaixin001.com.cn/i2/flag.gif';
+	$("importantnewshref").style.color = '#999999';
+}
+
+
+</script>
+
+</script>
+
+	<div class="m2 wr1" style="border-bottom:1px solid #bbb;background:#f7f7f7;"><div>
+<div style=" POSITION: relative;">
+<div id=apppopwindow style="width:331px; height:207px; Z-INDEX: 99999;left: -60px !important;  LEFT: -910px; POSITION: absolute; TOP: 105px; filter:alpha(opacity=0); -moz-opacity:0; display:none;" class="Popup">
+
+	<p>欢迎来到开心网！玩转开心网的所有功能，请点击“添加组件”链接...</p>
+	<ul class="List">
+		<li class="icon1"><a href="/app/?aid=1006">点歌给好友</a></li>
+		<li class="icon2"><a href="/app/?aid=1000">和朋友“动”来“动”去</a></li>
+		<li class="icon3"><a href="/app/?aid=1008">1G存储空间免费网盘</a></li>
+	</ul>
+	<div class="Close"><a href="javascript:h('apppopwindow');" title="关闭" >×</a></div>
+</div>
+</div>
+	  <div id=divsetstate class="szwdzt1" style="display:none;">
+<form onsubmit="return false;">
+	<div class="mb5"><b>我...</b></div>
+	<span class="it_s" ><input id="statetext" name="real_name" value="正在" type="text" class="it1" onfocus="this.className='it2';" onblur="this.className='it1'" style="width:200px;" /></span>
+	<div style="padding:3px;"></div>
+	<div>
+		<div class="flw20 p10" ></div>
+		<div class="rbs1"><input type="button"id="btn_fb" value="确定"title="确定" class="rb1-12"onmouseover="this.className='rb2-12';" onmouseout="this.className='rb1-12';" onclick="javascript:ajaxSetState();" /></div>
+		<div class="flw20">&nbsp;&nbsp;</div>
+		<div class="gbs1"><input type="button"id="btn_qx" value="取消"title="取消" class="gb1-12"onmouseover="this.className='gb2-12';" onmouseout="this.className='gb1-12';" onclick="javascript:h('divsetstate');" /></div>
+		<div class="flw5">&nbsp;&nbsp;</div>
+		<div class="c"></div>
+	</div>
+</form>
+</div>
+		<div class="srl">
+			<div class="srl1">
+				<div class="l">
+					<div class="l120_s" title="我的开心网ID:14714748"><img src="http://img.kaixin001.com.cn/i/120_0_0.gif" width="120" height="120" alt="我的开心网ID:14714748" /></div>
+					<div class="m0_10"><a href="/set/logo.php?uid=14714748" class="sl" title="修改头像">修改头像</a>　　<a href="/set/detail.php?uid=14714748" class="sl" title="个人资料">个人资料</a><br /><a href="/set/account.php?uid=14714748" class="sl" title="帐户管理">帐户管理</a>　　<a href="/set/privacy.php?uid=14714748" class="sl" title="隐私设置">隐私设置</a><br /><span style="display:none;"><a href="map.php?uid=14714748" class="sl" title="功能地图">功能地图</a>　　<a href="/blogset/?uid=14714748" class="sl" title="博客设置">博客设置</a></span></div>
+				</div>
+				<div class="r">
+					<div id=divstate0 class="sy_pr1" style="display:none;">
+						 <b class="f14">甫仁德</b>
+<script language=javascript>
+var v_verify = parseInt("1");
+if (!v_verify)
+{
+	document.writeln("(邮箱地址未验证)");
+}
+</script>
+						<br /><span id=statespan> <span class="sy_p_zt">0年0月更新</span></span><a href="###"><img src="http://img.kaixin001.com.cn/i/n_l_sz.gif" width="16" height="16" align="absmiddle" onmouseover="this.src='http://img.kaixin001.com.cn/i/n_l_sz2.gif';" onmouseout="this.src='http://img.kaixin001.com.cn/i/n_l_sz.gif';" onclick="javascript:setState(event);" title="设置我的状态"/></a>
+					</div>
+					<div id=divstate1 class="sy_pr1" style="display:none;">
+						<b class="f14">甫仁德</b>
+<script language=javascript>
+if (!v_verify)
+{
+	document.writeln("(邮箱地址未验证)");
+}
+</script>
+						<br /><a href="###" style="text-decoration:none;"><span class="sy_p_zt" onclick="javascript:setState(event);" >设置我的状态<img src="http://img.kaixin001.com.cn/i/n_l_sz.gif" width="16" height="16" align="absmiddle" onmouseover="this.src='http://img.kaixin001.com.cn/i/n_l_sz2.gif';" onmouseout="this.src='http://img.kaixin001.com.cn/i/n_l_sz.gif';" /></span></a>
+					</div>
+					<script language=javascript>
+						if ("0" == "0")
+						{
+							h("divstate0");
+							s("divstate1");
+						}
+						else
+						{
+							s("divstate0");
+							h("divstate1");
+						}
+					</script>
+					<div class="sy_pr2" style="width:380px;">
+<table>
+
+	<tr valign=top><td style="text-align:right;width:72px;">性别：</td><td>&nbsp;</td><td><span class="sl">男</span></td></tr>
+	<tr valign=top><td style="text-align:right;width:72px;">出生日期：</td><td>&nbsp;</td><td><span class="sl">1981年10月25日</span></td></tr>
+	<tr valign=top><td style="text-align:right;width:72px;">现居住地：</td><td>&nbsp;</td><td><span class="sl">上海</span></td></tr>
+</table>
+						<span style="display:none;"><a class="blog_bg" href="/blog/?uid=14714748" target="_blank" onfocus="this.blur();">访问我的博客</a></span>
+					</div>
+				</div>
+				<div class="c"></div>
+			</div>
+			
+			<div id="nofrienddiv" style="display:none;">
+			
+				
+				
+				
+			
+			<div class="why_d" style="padding:5px;">
+            	<div class="iv_nof" id=nofriendtipdiv>
+					<div class="l"><b class="f13">你目前还没有好友，使用开心网从添加好友开始...</b></div>
+					<div class="r"><a href="javascript:h('nofriendtipdiv');" class="gbj" title="关闭"><b>×</b></a></div>
+					<ul class="c6">
+						<li>你也许已有很多朋友在开心网安家了，找找看并将他们添加到你的好友列表中</li>
+						<li>邀请你的朋友加入开心网，一旦他们加入就会自动出现在你的好友列表中</li>
+						<li>点击网页左侧栏“添加”链接，添加更多功能玩转开心网</li>
+					</ul>
+				</div>
+            	<div class="m15">
+			<div class="p010">
+			<div class="mb10 f13"><b>你的朋友和旧识可能已有人在开心网安家了，找找看</b></div>
+			<div class="mb5">
+				<img src="http://img.kaixin001.com.cn/i/inv/arrow_b.gif" align="absmiddle" width="5" height="12" />
+				<a href="/find/?open=email" class="sl">查找我的雅虎邮箱通讯录中有谁已经在开心网</a>
+			</div>
+			
+			<div class="mb5">
+				<img src="http://img.kaixin001.com.cn/i/inv/arrow_b.gif" align="absmiddle" width="5" height="12" />
+				<a href="/find/?open=msn" class="sl">查找我的MSN联系人中有谁已经在开心网</a>
+			</div>
+			
+			<div class="mb5">
+				<img src="http://img.kaixin001.com.cn/i/inv/arrow_b.gif" align="absmiddle" width="5" height="12" />
+				<a href="/find/?open=education" class="sl">查找同学</a>
+			</div>
+			<div class="mb5">
+				<img src="http://img.kaixin001.com.cn/i/inv/arrow_b.gif" align="absmiddle" width="5" height="12" />
+				<a href="/find/?open=career" class="sl">查找同事</a>
+			</div>
+			<div class="mb5">
+				<img src="http://img.kaixin001.com.cn/i/inv/arrow_b.gif" align="absmiddle" width="5" height="12" />
+				<a href="/find/?open=other" class="sl">查找旧识</a>
+			</div>
+			
+			</div>
+			<div style="border-top:1px solid #ccc; margin-top:10px; padding-bottom:15px;"></div>
+                	<div class="p010">
+                        <div class="mb5 f13"><b>你也可以邀请朋友加入开心网，并添加到好友列表中</b></div>
+                        <div>
+							<img src="http://img.kaixin001.com.cn/i/inv/arrow_b.gif" align="absmiddle" width="5" height="12" />
+							<a href="/friend/invite.php" class="sl" title="现在就邀请">现在就邀请</a></div>
+			</div>
+                </div>
+			</div>
+		</div>
+			<script language=javascript>
+			var v_friendcount = parseInt("0");
+			if (v_friendcount == 0)
+			{
+				//s("nofrienddiv");
+			}
+			</script>
+			
+			<div class="srr_tl">
+            	<div class="l"><img src="http://img.kaixin001.com.cn/i/i_xxzx.gif" align="absmiddle" /><b><a href="/msg/" class="noline">消息中心</a></b></div>
+            	<div class="r"><a href="javascript:sh('msgdiv');changeimg('msgimg', 'http://img.kaixin001.com.cn/i/i_jt1.gif', 'http://img.kaixin001.com.cn/i/i_jt2.gif')" title=""><img src="http://img.kaixin001.com.cn/i/i_jt1.gif" width="20" height="19" id=msgimg /></a></div>
+            	<div class="c"></div>
+            </div>
+	<div id=msgdiv class="srr_rlm">
+		<div class="p10">
+			<div class="yx_l lh25">　<a href="javascript:window.location='/msg/inbox.php?t=' + Math.ceil(Math.random() * 100)" class="noline" title="短消息收件箱">短消息</a>：<a href="javascript: window.location = '/msg/inbox.php?t=' + Math.ceil(Math.random() * 100)" class="ql2" id=body_msg_num>0条新</a><br /><a href="javascript: window.location = '/msg/sys.php?t=' + Math.ceil(Math.random() * 100)" class="noline" title="系统消息收件箱">系统消息</a>：<a href="javascript: window.location = '/msg/sys.php?t=' + Math.ceil(Math.random() * 100)" class="ql2" id=body_sysmsg_num>0条新</a></div>
+			<div class="yx_l lh25">　<a href="javascript:window.location='/comment/uindex.php?t=' + Math.ceil(Math.random() * 100)" class="noline" title="我的留言板">留言板</a>：<a href="javascript:window.location='/comment/uindex.php?t=' + Math.ceil(Math.random() * 100)" class="ql2" id=body_bbs_num>0条新</a><br /><a href="javascript:window.location='/comment/usend.php?t=' + Math.ceil(Math.random() * 100)" class="noline" title="我给别人的留言及回复">留言回复</a>：<a href="javascript:window.location='/comment/usend.php?t=' + Math.ceil(Math.random() * 100)" class="ql2" id=body_bbsreply_num>0条新</a></div>
+			<div class="l lh25">　　<a href="javascript:window.location='/comment/?t=' + Math.ceil(Math.random() * 100)" class="noline" title="别人给我的评论">评论</a>：<a href="javascript:window.location='/comment/?t=' + Math.ceil(Math.random() * 100)" class="ql2" id=body_comment_num>0条新</a><br /><a href="javascript:window.location='/comment/send.php?t=' + Math.ceil(Math.random() * 100)" class="noline" title="我给别人的评论及回复">评论回复</a>：<a href="javascript:window.location='/comment/send.php?t=' + Math.ceil(Math.random() * 100)" class="ql2" id=body_reply_num>0条新</a></div>
+			<div class="c"></div>
+		</div>
+	</div>
+
+			<div class="srr_tl">
+            	<div class="l"><img src="http://img.kaixin001.com.cn/i/i_hydt.gif" align="absmiddle" /><b>好友动态</b></div>
+            	
+				<div class="l" style="padding:5px 0px 0 400px;*padding:5px 0px 0 400px;"><a href="/friend/group.php?viewtype=forbid"><img src="http://img.kaixin001.com.cn/i2/sz12.gif" width="10" height="10" alt="如果你不想收到某个好友的动态，可以将对方加入好友动态屏蔽名单"  align="absmiddle" /></a></div>
+				<div class="l" style="padding:5px 0px 0 7px;*padding:5px 0px 0 7px;"><a href="/home/news.php?flag=1"><img src="http://img.kaixin001.com.cn/i2/flag.gif" onmouseover ="this.src='http://img.kaixin001.com.cn/i2/flag1.gif'" onmouseout ="this.src='http://img.kaixin001.com.cn/i2/flag.gif'" width="10" height="10" alt="好友上传照片、发表日记等重要动态"  align="absmiddle" /></a></div>
+				<div class="l" style="padding:5px 0px 0 6px;*padding:5px 0px 0 6px;"><a href="/home/news.php"><img src="http://img.kaixin001.com.cn/i2/more.gif" width="13" height="9" alt="好友最近的动态"  align="absmiddle" /></a></div>
+				<div class="r"><a href="javascript:sh('newsdiv');changeimg('newsimg', 'http://img.kaixin001.com.cn/i/i_jt1.gif', 'http://img.kaixin001.com.cn/i/i_jt2.gif')" title=""><img src="http://img.kaixin001.com.cn/i/i_jt1.gif" width="20" height="19" id=newsimg /></a></div>
+				
+				
+            	<div class="c"></div>
+            </div>
+			<div id=newsdiv class="srr_rlm"> 
+				<div class="gw1" id=nonewsdiv style="display:none;">
+					<div class="gw14"></div>
+					<div class="gw12">目前没有好友动态
+					</div>
+					<div class="c"></div>
+				</div>
+
+				<div id=morenewsdiv style="display:none;width:540px;height:40px;">				
+				<div class="l" onmouseover="showPic();" onmouseout="showPic1();" style="width:320px;height:40px;"></div>
+				<div class="l" style="height:40px;" >
+				 <div class="l srr_tm" style="height:15px;margin-top:8px;margin-bottom:5px;" ><div id="flagdiv" onmouseover="showPic();" onmouseout="showPic1();" ><a href="/home/news.php?flag=1"><img id="importantnewsimg" src="http://img.kaixin001.com.cn/i2/flag.gif" width="10" height="10" alt="好友重要动态"  align="absmiddle" /></a> <a href="/home/news.php?flag=1" id="importantnewshref" class="c9" style="text-decoration:none;">好友重要动态</a></div></div>			
+				 <div class="l srr_tm" style="height:15px;margin-top:8px;margin-bottom:5px;" onmouseover="showPic1();"><a href="/home/news.php"><img src="http://img.kaixin001.com.cn/i2/more.gif" width="13" height="9" alt="好友最近的动态"  align="absmiddle" /></a> <a href="/home/news.php" class="c9" style="text-decoration:none;">好友最近的动态</a></div>			
+				 <div class="c"></div>
+				 <div class="l" onmouseover="showPic();" onmouseout="showPic1();" style="height:20px;width:100px;margin-top:-5px;"></div>
+				 <div class="l" onmouseover="showPic1();" style="height:20px;width:margin-top:-5px;"></div>
+				 <div class="c"></div>
+				</div>
+				<div class="c"></div>
+			</div>
+
+			</div>
+			<script language=javascript>
+			var v_newscount = "0";
+			if (v_newscount == "0")
+			{
+				s("nonewsdiv");
+			}
+			else
+			{
+				s("morenewsdiv");
+			}
+			</script>
+
+
+			<div class="srr_tl">
+            	<div class="l"><img src="http://img.kaixin001.com.cn/i/gift/ico_lw_bg.gif" align="absmiddle" /><b>礼物</b></div>
+            	<div class="r"><a href="javascript:sh('appinfo_1001_div');changeimg('appinfo_1001_img', 'http://img.kaixin001.com.cn/i/i_jt1.gif', 'http://img.kaixin001.com.cn/i/i_jt2.gif')" title=""><img src="http://img.kaixin001.com.cn/i/i_jt1.gif" width="20" height="19" id=appinfo_1001_img /></a></div>
+            	<div class="c"></div>
+            </div>
+			<div id=appinfo_1001_div class="bj_d1">
+
+			<div class="lwlb">
+				
+				
+				<div class="c"></div>
+				<div class="r"><a href="/gift/reve.php?uid=14714748" class="c9" title="我收到的所有礼物">我收到的所有礼物&gt;&gt;</a></div>
+				<div class="c"></div>
+			</div>
+			<div class="c"></div>
+		
+			</div>
+<script>
+function showfrdiv(cid)
+{
+	var imgname = "frimg_" + cid;
+	$(imgname).src = "http://img.kaixin001.com.cn/i2/tanhao1.gif";
+}
+
+function hidefrdiv(cid)
+{
+	var imgname = "frimg_" + cid;
+	$(imgname).src = "http://img.kaixin001.com.cn/i2/tanhao.gif";
+}
+
+function reportFR(cid, uid)
+{
+	var bConf = confirm("你认为这条陌生人留言为广告、骚扰、或含有不良内容等垃圾消息，确定要举报并删除它吗？");
+	if (bConf)
+	{
+		document.reportform.cid.value = cid;
+		document.reportform.fromuid.value = uid;
+		document.reportform.submit();
+	}	
+}
+</script>
+<form action=/comment/report_comment.php method=post name=reportform>
+<input type=hidden name=cid>
+<input type=hidden name=fromuid>
+<input type=hidden name=type value=1>
+</form>
+<a name=bbs></a>
+			<div class="srr_tl">
+            	<div class="l"><img src="http://img.kaixin001.com.cn/i/i_wdlyb.gif" align="absmiddle" /><b>留言板</b></div>
+            	<div class="r"><a href="javascript:sh('bbsdiv');changeimg('bbsimg', 'http://img.kaixin001.com.cn/i/i_jt1.gif', 'http://img.kaixin001.com.cn/i/i_jt2.gif')" title=""><img src="http://img.kaixin001.com.cn/i/i_jt1.gif" width="20" height="19" id=bbsimg /></a></div>
+            	<div class="c"></div>
+            </div>
+			<div class="srr_rlm" id=bbsdiv>
+
+<div class="gw" style="padding-bottom:0px;">
+	<div class="gw1">
+		<div>
+			<div class="fb_d2"><div id="content_div" name="content_div"></div></div>
+			<script type="text/javascript">
+			comment_editor = new webEditor("comment_editor" , $("content_div") , 418, 80);
+			comment_editor.init("");
+			</script>
+			<div class="l p010 mt5" style="padding-left:317px;*padding-left:303px;"><input type=checkbox name=comment_hiddenmsg id=comment_hiddenmsg>悄悄话</div><div class="rbs1"><input type="button" id="btn_qd" value="留言" title="留言" class="rb1-12" onmouseover="this.className='rb2-12';" onmouseout="this.className='rb1-12';" onclick="addCommentSubmit(this, 'addcommentprompt');" /></div><div class="flw5">&nbsp;</div><div id="addcommentprompt" style="display:none;" class="c6 p010 mt15">提交中...</div>
+			<div class="c" style="height:1px;"></div>
+		</div>
+	</div>
+	<div class="c"></div>
+</div>
+
+<div id="comment">
+</div>
+<script type="text/javascript">
+	initComment("14714748", "14714748", "0", "14714748");
+	getCommentList();
+</script>
+				
+				<div class="srr_tm"><a href="/comment/uindex.php?uid=14714748" class="c9" title="我的留言板">我的留言板&gt;&gt;</a></div>
+			</div>
+
+			<br /><br /><br /><br />
+		</div>
+
+		<div class="srr">
+			<br />
+			<div class="srr_tl">
+				<div class="l"><b>最近来访</b></div>
+				<div class="r" style="padding-top:3px;">
+					<a href="/friend/visitor.php?from=1" title="清除来访记录"><img src="http://img.kaixin001.com.cn/i/lajixiang.gif" alt="清除来访记录" width="10" height="10" /></a>&nbsp;
+				  <a href="/set/privacy.php?flag=16#footprint_anchor" title="设置非好友来访时，是否留下访问记录"><img src="http://img.kaixin001.com.cn/i2/sz2.gif" alt="设置非好友来访时，是否留下访问记录" width="10" height="10" title="设置非好友来访时，是否留下访问记录"/></a></div>
+				<div class="c"></div>
+			</div>
+			<div class="mb10">
+			<div class="p10"></div>
+				<div id=novisitorlistdiv style="display:none;padding:5px;margin-top:-15px;padding-bottom:20px;" class="c9">
+				目前还没有访客
+				</div>
+
+				<div class="c"></div>
+			</div>
+			<div id=allvisitorlistdiv class="srr_tm" style="margin-top:-10px;display:none;"><a href="/friend/visitor.php?uid=14714748" class="c9"  title="所有访客">所有访客&gt;&gt;</a></div>
+			<script language=javascript>
+			var v_visitorcount = "0";
+			if (v_visitorcount == "0")
+			{
+				s("novisitorlistdiv");
+			}
+			else
+			{
+				s("allvisitorlistdiv");
+			}
+			</script>
+
+
+			<div class="srr_tl">
+				<div class="l"><b>我的好友</b></div>
+				<div class="r" style="padding-top:5px;"><a href="/set/privacy.php?flag=14#friendrange_anchor" class="c9" title="谁能请求加我为好友"><img src="http://img.kaixin001.com.cn/i2/sz2.gif" alt="谁能请求加我为好友" width="10" height="10" /></a></div>
+				<div class="c"></div>
+			</div>
+			<div style="height:15px;"></div>
+			<div class="mb10">
+			
+				<div id=nofriendlistdiv style="display:none;padding:5px;margin-top:-15px;" class="c9">
+				目前还没有好友，<a href="/friend/invite.php" class="sl">邀请朋友加入</a>
+				</div>
+
+				<div class="c"></div>
+			</div>
+			<div class="l" id="searchfriend" style="display:none;"> &nbsp; &nbsp; 
+					<span style="border:2px solid #F7F7F7;">
+						<input class="c9" style='width:120px;height:13px;font-size:12px;border:1px solid #BDC7D8;background:#ffffff url(http://img.kaixin001.com.cn/i/magnifier.gif) 2.5% 40% no-repeat;padding-left:18px;' id='searchuser' value="你要去看谁？" onkeydown="var ret = f_inputOnkeydown(event ,this);event.cancelBubble = true;return ret;" onkeyup="f_inputOnkeyup(event,this);event.cancelBubble = true;" onblur="f_inputOnblur();" onfocus="if (this.value=='你要去看谁？') this.value = '';this.className='c0'; f_inputOnfocus(event,this);" type="text" autocomplete="off"/></span>
+			</div>
+			<div id=allfriendlistdiv class="r" style="display:none;"><a href="/friend/?uid=14714748" class="c9"  title="所有好友">所有好友&gt;&gt;</a>&nbsp;</div>
+			<div id=invitefrienddiv class="r" style="display:none;"><a href="/friend/invite.php" class="sl"  title="邀请更多朋友加入">邀请更多朋友加入&gt;&gt;</a>&nbsp;</div>
+			<div class="c"></div>
+			
+			<script language=javascript>
+			if (v_friendcount == 0)
+			{
+				s("nofriendlistdiv");
+			}
+			else if (v_friendcount <= 3)
+			{
+				s("invitefrienddiv");
+			}
+			else
+			{
+				s("allfriendlistdiv");
+			}
+			if(v_friendcount == 25)
+			{
+				$("searchfriend").style.display = "block";
+				new friendSuggest("searchuser" , "请输入好友的姓名，直接进入对方的首页 (支持拼音首字母快捷输入)" , "");
+			}
+			</script>
+
+		</div>
+		<div class="c"></div>
+
+	</div></div>
+<script language=javascript>
+outputTail();
+</script>
+</body>
+</html>

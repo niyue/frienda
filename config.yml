@@ -1,0 +1,23 @@
+# replace with your email and password for kaixin001.com
+email: "your_email@example.com"
+password: "your_password"
+
+# whether to generate simple graph (simple graph is friends graph without friend's avatar but only friend's name)
+enable_simple_graph: true
+
+# whether to generate complex graph (complex graph is friends graph with both friend's avatar and friend's name)
+enable_avatar_graph: true
+download_avatar: false #true
+
+# whether or not the full name of your friends will be displayed
+# if disabled, only the last character of friend names will be used
+enable_privacy: true #false
+
+# whether generate png from svg file
+generate_complex_png: true
+
+# max memory used by java to generate png file from svg file
+max_memory: "2048m"
+
+# graphviz bin directory path
+graphviz_bin_dir: "/usr/local/bin/" #"/path/to/your/graphviz/bin/"
