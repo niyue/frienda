@@ -1,6 +1,6 @@
 = frienda
 
-* FIX (url)
+* http://github.com/nybon/frienda
 
 == DESCRIPTION:
 
