@@ -9,7 +9,7 @@ Frienda is a program used to analyze and visualize your friends network within k
 == FEATURES:
 
 * Grab your friends data from kaixin001.com
-* Visualize friends network by outputting a diagram, which tells you how your friends, and friends of friends, relating to each other
+* Visualize friends network by outputting an undirected graph, which tells you how your friends, and friends of friends, relating to each other
 * Support png and svg formats
 * Support to use friend's name or avartar as node in the diagram
 
@@ -18,6 +18,7 @@ http://farm4.static.flickr.com/3131/3154058956_a6bd8e52d8_b.jpg
 http://farm4.static.flickr.com/3224/3154066802_ed77aa998f_b.jpg
 
 PNG format sample download: http://www.box.net/shared/o4nuvlrd9f
+
 SVG format sample download: http://www.box.net/shared/rtngd348k0
 
 == REQUIREMENTS:
