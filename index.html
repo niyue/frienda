@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Frienda : Analyzer for friends data in kaixin001.com" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Frienda</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/niyue/frienda">View on GitHub</a>
+
+          <h1 id="project_title">Frienda</h1>
+          <h2 id="project_tagline">Analyzer for friends data in kaixin001.com</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/niyue/frienda/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/niyue/frienda/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>frienda</h1>
+
+<ul>
+<li><a href="http://github.com/niyue/frienda">http://github.com/niyue/frienda</a></li>
+</ul><h1>DESCRIPTION:</h1>
+
+<p>Frienda is a program used to analyze and visualize your friends network within kaixin001.com.</p>
+
+<h1>FEATURES:</h1>
+
+<ol>
+<li>Grab your friends data from kaixin001.com</li>
+<li>Visualize friends network by outputting an undirected graph, which tells you how your friends, and friends of friends, relating to each other</li>
+<li>Support png and svg formats</li>
+<li>Support to use friend's name or avartar as node in the diagram</li>
+</ol><h1>SAMPLE OUTPUTS:</h1>
+
+<p><img src="http://farm4.static.flickr.com/3131/3154058956_a6bd8e52d8_b.jpg" alt="screenshot" title="screenshot"></p>
+
+<p><img src="http://farm4.static.flickr.com/3224/3154066802_ed77aa998f_b.jpg" alt="screenshot" title="screenshot"></p>
+
+<p>PNG format sample download: <a href="http://www.box.net/shared/o4nuvlrd9f">http://www.box.net/shared/o4nuvlrd9f</a></p>
+
+<p>SVG format sample download: <a href="http://www.box.net/shared/rtngd348k0">http://www.box.net/shared/rtngd348k0</a></p>
+
+<h1>REQUIREMENTS:</h1>
+
+<ul>
+<li>Only tested under Mac OS X 10.5.6</li>
+</ul><h1>INSTALL and RUN:</h1>
+
+<ol>
+<li>Install Java 5</li>
+<li>Install Graphviz, <a href="http://www.graphviz.org/">http://www.graphviz.org/</a>
+</li>
+<li>Install JRuby, <a href="http://jruby.org">http://jruby.org</a>
+</li>
+<li>Install rgl and hpricot gems, jruby -S gem install rgl hpricot</li>
+<li>Download Batik SVG library 1.7, <a href="http://xmlgraphics.apache.org/batik/download.cgi">http://xmlgraphics.apache.org/batik/download.cgi</a>
+</li>
+<li>Unzip and copy Batik library, unzip batik-1.7.zip</li>
+<li>Create jar directory, mkdir FRIENDA_HOME/lib/jar</li>
+<li>Copy unzipped Batik library, cp -r batik-1.7/* FRIENDA_HOME/lib/jar/</li>
+<li>Change config.yml according to parameter description</li>
+<li>Run "jruby bin/frienda.rb"</li>
+</ol>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Frienda maintained by <a href="https://github.com/niyue">niyue</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
